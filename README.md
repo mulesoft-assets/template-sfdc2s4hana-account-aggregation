@@ -1,5 +1,5 @@
 
-# Anypoint Template: Salesforce and SAP S4/HANA Account Aggregation	
+# Anypoint Template: Salesforce and SAP S/4HANA Account Aggregation	
 
 <!-- Header (start) -->
 
@@ -9,11 +9,11 @@
 This template is subject to the conditions of the <a href="https://s3.amazonaws.com/templates-examples/AnypointTemplateLicense.pdf">MuleSoft License Agreement</a>. Review the terms of the license before downloading and using this template. You can use this template for free with the Mule Enterprise Edition, CloudHub, or as a trial in Anypoint Studio. 
 # Use Case
 <!-- Use Case (start) -->
-I want to aggregate accounts from Salesforce and SAP S4/HANA and compare them to see which can only be found in one of the two and which accounts are in both systems.
+I want to aggregate accounts from Salesforce and SAP S/4HANA and compare them to see which can only be found in one of the two and which accounts are in both systems.
 
 This template generates the result as a CSV report that is sent by email to addresses you can configure.
 
-This template gets accounts from Salesforce and business partners from SAP S4/HANA, compares by the name of the objects, and generates a CSV file which shows accounts in Salesforce, business partners in SAP S4/HANA, and objects in both systems. The report is then emailed to a configured group of email addresses.
+This template gets accounts from Salesforce and business partners from SAP S/4HANA, compares by the name of the objects, and generates a CSV file which shows accounts in Salesforce, business partners in SAP S/4HANA, and objects in both systems. The report is then emailed to a configured group of email addresses.
 <!-- Use Case (end) -->
 
 # Considerations
@@ -164,8 +164,8 @@ To use this template, configure properties such as credentials, configurations, 
 
 + mail.from `exampleuser@example.com`
 + mail.to `woody.guthrie@example.com`
-+ mail.subject `SFDC and SAP S4/HANA Accounts Aggregation Report`
-+ mail.body `Report comparing accounts from Salesforce and SAP S4/HANA Business Partners`
++ mail.subject `SFDC and SAP S/4HANA Accounts Aggregation Report`
++ mail.body `Report comparing accounts from Salesforce and SAP S/4HANA Business Partners`
 + attachment.name `AccountsReport.csv`
 <!-- Application Configuration (end) -->
 

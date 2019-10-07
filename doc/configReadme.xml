@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <configuration>
 	<placeholders>
-		<placeholder id="template_name">Salesforce and SAP S4/HANA Account Aggregation</placeholder>
+		<placeholder id="template_name">Salesforce and SAP S/4HANA Account Aggregation</placeholder>
 	</placeholders>
 	<sections>
 		<section id="use_case">
 			<![CDATA[
-I want to aggregate accounts from Salesforce and SAP S4/HANA and compare them to see which can only be found in one of the two and which accounts are in both systems.
+I want to aggregate accounts from Salesforce and SAP S/4HANA and compare them to see which can only be found in one of the two and which accounts are in both systems.
 
 This template generates the result as a CSV report that is sent by email to addresses you can configure.
 
-This template gets accounts from Salesforce and business partners from SAP S4/HANA, compares by the name of the objects, and generates a CSV file which shows accounts in Salesforce, business partners in SAP S4/HANA, and objects in both systems. The report is then emailed to a configured group of email addresses.
+This template gets accounts from Salesforce and business partners from SAP S/4HANA, compares by the name of the objects, and generates a CSV file which shows accounts in Salesforce, business partners in SAP S/4HANA, and objects in both systems. The report is then emailed to a configured group of email addresses.
 ]]>
 		</section>
 		<section id="considerations">
@@ -63,8 +63,8 @@ Check this Documentation Page: [Enabling Your Studio Project for SAP S/4HANA](ht
 
 + mail.from `exampleuser@example.com`
 + mail.to `woody.guthrie@example.com`
-+ mail.subject `SFDC and SAP S4/HANA Accounts Aggregation Report`
-+ mail.body `Report comparing accounts from Salesforce and SAP S4/HANA Business Partners`
++ mail.subject `SFDC and SAP S/4HANA Accounts Aggregation Report`
++ mail.body `Report comparing accounts from Salesforce and SAP S/4HANA Business Partners`
 + attachment.name `AccountsReport.csv`
 ]]>
 		</section>
