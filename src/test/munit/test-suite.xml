@@ -11,9 +11,8 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
 http://www.mulesoft.org/schema/mule/s4hana http://www.mulesoft.org/schema/mule/s4hana/current/mule-s4hana.xsd">
     <munit:config name="test-suite.xml" />
+    <configuration-properties doc:name="Configuration properties" doc:id="501dc361-da6d-4c20-9f76-fae19bcbf629" file="mule.test.properties" />
     <munit:before-test name="test-suiteBefore_Test" description="Before tests actions" doc:id="26c85ec4-3bfc-4863-a9de-e06ef3d70448">
-        <s4hana:query service="API_BUSINESS_PARTNER" entityType="A_BusinessPartner" doc:name="Get business partners from S4HANA" doc:id="1ba067d1-0b30-41c3-931e-2514d9476d01"
-            config-ref="SAP_S_4HANA_Config" select="BusinessPartner,BusinessPartnerName" />
         <ee:transform doc:name="Prepare test data" doc:id="d6b03b15-c564-465f-b674-87e5fdafa7a9">
             <ee:message />
             <ee:variables>
@@ -21,33 +20,16 @@ http://www.mulesoft.org/schema/mule/s4hana http://www.mulesoft.org/schema/mule/s
 output application/java
 ---
 "Test product Salesforce" ++ randomInt(1000)]]></ee:set-variable>
-                <ee:set-variable variableName="accountInBothSystems"><![CDATA[%dw 2.0
-output application/java
----
-payload[1].BusinessPartnerName]]></ee:set-variable>
                 <ee:set-variable variableName="accountInS4HANAOnly"><![CDATA[%dw 2.0
 output application/java
 ---
-payload[0].BusinessPartnerName]]></ee:set-variable>
+p('s4hana.accountInS4HANAOnly')]]></ee:set-variable>
+				<ee:set-variable variableName="accountInBothSystems" ><![CDATA[%dw 2.0
+output application/java
+---
+p('s4hana.accountInBothSystems')]]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-        <salesforce:query-single doc:name="Get account for accountInS4HANAOnly" doc:id="de195e46-615a-4dfc-a1c2-e37f782272f9" config-ref="Salesforce_Config">
-            <salesforce:salesforce-query>SELECT Id FROM Account where Name = ':name' </salesforce:salesforce-query>
-            <salesforce:parameters><![CDATA[#[output application/java
----
-{
-	"name" : vars.accountInS4HANAOnly
-}]]]></salesforce:parameters>
-        </salesforce:query-single>
-        <logger level="INFO" doc:name="Logger" doc:id="3dcc1ad6-7b2f-43aa-96b4-cacf5d2bc8aa" message="Get account response: #[payload]"/>
-		<choice doc:name="Account exists in Sfdc?" doc:id="0470b2b9-0696-4899-a883-3c847d95a0a9">
-            <when expression="#[not isEmpty(payload)]">
-                <salesforce:delete doc:name="Delete account from Salesforce" doc:id="2bb525c8-58e4-49a3-9d71-1768eac90d32" config-ref="Salesforce_Config">
-                    <salesforce:delete-ids><![CDATA[#[[payload.Id]]]]></salesforce:delete-ids>
-                </salesforce:delete>
-                <logger level="INFO" doc:name="Logger" doc:id="1714e8ba-b098-4b91-993c-1b4d7e8b0b8d" message="Account with Id #[payload.Id] deleted from Salesforce" />
-            </when>
-        </choice>
         <ee:transform doc:name="Prepare data for Salesforce" doc:id="177fef1d-16a4-4f88-a7e5-ddfb21712a27">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -78,7 +60,7 @@ payload map ($.id)]]></ee:set-variable>
     <munit:test name="test-suite-businessLogicFlowTest" description="Test" doc:id="0274d763-2635-4217-97a5-192d3d545d68">
         <munit:execution>
             <flow-ref doc:name="Call businessLogicFlow" doc:id="d93face2-e35b-4cad-a76f-cc72750112a8" name="businessLogicFlow" />
-            <ee:transform doc:name="Filtering test records" doc:id="eb2ee29d-96a7-4de0-b21b-308652f1c0e9">
+			<ee:transform doc:name="Filtering test records" doc:id="eb2ee29d-96a7-4de0-b21b-308652f1c0e9">
                 <ee:message>
                     <ee:set-payload><![CDATA[%dw 2.0
 output application/java
